@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+CMD=$1
+
+case "$CMD" in
+  'start' )
+    echo `pwd`
+    rm -f /data/src/tmp/pids/server.pid
+    cd /standardnotes/
+    bundle exec rails s -b 0.0.0.0
+    ;;
+
+   * )
+    # Run custom command. Thanks to this line we can still use
+    # "docker run our_image /bin/bash" and it will work
+    exec "$@"
+    ;;
+esac
+
