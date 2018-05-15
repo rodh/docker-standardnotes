@@ -1,7 +1,14 @@
 FROM alpine
 
-RUN apk -U upgrade \
-    && apk add --no-cache -t build-dependencies \
+RUN apk -U upgrade
+RUN apk add --no-cache \
+    tzdata \
+    nodejs \
+    ruby \
+    ruby-io-console \
+    ruby-json \
+    ruby-bigdecimal
+RUN apk add --no-cache -t build-dependencies \
     git \
     curl-dev \
     wget \
@@ -9,13 +16,6 @@ RUN apk -U upgrade \
     build-base \
     nodejs-npm \
     zlib-dev \
-    && apk add --no-cache \
-    tzdata \
-    nodejs \
-    ruby \
-    ruby-io-console \
-    ruby-json \
-    ruby-bigdecimal \
   && git clone https://github.com/standardnotes/web.git /standardnotes \
   && gem install -N rails --version "$RAILS_VERSION" \
   && echo 'gem: --no-document' >> ~/.gemrc \
