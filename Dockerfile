@@ -1,4 +1,4 @@
-FROM node:6-alpine
+FROM node:alpine
 
 RUN apk -U upgrade \
     && apk add -t build-dependencies \
@@ -27,11 +27,10 @@ RUN apk -U upgrade \
   && bundle exec rake bower:install \
   && grunt \
   && apk del build-dependencies \
-  && rm -rf /tmp/*  /var/cache/apk/* /tmp/* /root/.gnupg /root/.cache/ /standardnotes/.git 
+  && rm -rf /tmp/* /var/cache/apk/* /tmp/* /root/.gnupg /root/.cache/ /standardnotes/.git 
 
-COPY docker /docker
+COPY entrypoint /entrypoint
 
 EXPOSE 3000
-ENTRYPOINT ["/docker/entrypoint"]
+ENTRYPOINT ["/entrypoint"]
 CMD ["start"]
-
