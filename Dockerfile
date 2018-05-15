@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM alpine
 
 RUN apk -U upgrade \
     && apk add -t build-dependencies \
@@ -6,7 +6,10 @@ RUN apk -U upgrade \
     curl-dev \
     wget \
     ruby-dev \
-    build-base \ 
+    build-base \
+    nodejs \
+    nodejs-npm \
+    zlib-dev \
     && apk add \
     tzdata \
     ruby \
