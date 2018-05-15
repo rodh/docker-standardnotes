@@ -1,17 +1,17 @@
 FROM alpine
 
 RUN apk -U upgrade \
-    && apk add -t build-dependencies \
+    && apk add --no-cache -t build-dependencies \
     git \
     curl-dev \
     wget \
     ruby-dev \
     build-base \
-    nodejs \
     nodejs-npm \
     zlib-dev \
-    && apk add \
+    && apk add --no-cache \
     tzdata \
+    nodejs \
     ruby \
     ruby-io-console \
     ruby-json \
@@ -33,6 +33,8 @@ RUN apk -U upgrade \
   && rm -rf /tmp/* /var/cache/apk/* /tmp/* /root/.gnupg /root/.cache/ /standardnotes/.git 
 
 COPY entrypoint /entrypoint
+
+RUN chmod +x entrypoint
 
 EXPOSE 3000
 ENTRYPOINT ["/entrypoint"]
